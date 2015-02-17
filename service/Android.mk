@@ -42,16 +42,16 @@ include $(BUILD_STATIC_LIBRARY)
 # ============================================================
 LIB_WIFI_HAL := libwifi-hal
 
-ifneq ($(BOARD_NO_WIFI_HAL), true)
-  ifeq ($(BOARD_WLAN_DEVICE), bcmdhd)
-    LIB_WIFI_HAL := libwifi-hal-bcm
-  else ifeq ($(BOARD_WLAN_DEVICE), qcwcn)
-    LIB_WIFI_HAL := libwifi-hal-qcom
-  else ifeq ($(BOARD_WLAN_DEVICE), mrvl)
-    # this is commented because none of the nexus devices
-    # that sport Marvell's wifi have support for HAL
-    # LIB_WIFI_HAL := libwifi-hal-mrvl
-  endif
+ifeq ($(BOARD_WLAN_DEVICE), bcmdhd)
+  LIB_WIFI_HAL := libwifi-hal-bcm
+else ifeq ($(BOARD_WLAN_DEVICE), qcwcn)
+  # this is commented because none of the nexus devices
+  # that sport Qualcomm's wifi have support for HAL
+  # LIB_WIFI_HAL := libwifi-hal-qcom
+else ifeq ($(BOARD_WLAN_DEVICE), mrvl)
+  # this is commented because none of the nexus devices
+  # that sport Marvell's wifi have support for HAL
+  # LIB_WIFI_HAL := libwifi-hal-mrvl
 endif
 
 # Build the HalUtil
@@ -74,8 +74,7 @@ LOCAL_SHARED_LIBRARIES += \
 	libcutils \
 	libnl \
 	libandroid_runtime \
-	libutils \
-	libdl
+	libutils
 
 LOCAL_STATIC_LIBRARIES += $(LIB_WIFI_HAL)
 
@@ -109,8 +108,7 @@ LOCAL_SHARED_LIBRARIES += \
 	libhardware \
 	libhardware_legacy \
 	libandroid_runtime \
-	libnl \
-	libdl
+    libnl
 
 LOCAL_STATIC_LIBRARIES += $(LIB_WIFI_HAL)
 
